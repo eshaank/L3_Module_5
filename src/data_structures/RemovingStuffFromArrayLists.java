@@ -25,11 +25,17 @@ public class RemovingStuffFromArrayLists {
 		stuffIFoundInTheYard.add(new Worm());
 		stuffIFoundInTheYard.add(new Dirt());
 
-		System.out.println(stuffIFoundInTheYard.size());
+		// System.out.println(stuffIFoundInTheYard.size());
 
 		/* TODO 1: Clean out the dirt but keep the delicious worms. */
+		for (int i = stuffIFoundInTheYard.size() - 1; i > 0; i--) {
+			Stuff a = stuffIFoundInTheYard.get(i);
+			if (a instanceof Dirt) {
+				stuffIFoundInTheYard.remove(a);
+			}
+		}
 
-		System.out.println(stuffIFoundInTheYard.size()); // should be 2
+		// System.out.println(stuffIFoundInTheYard.size()); // should be 2
 
 		ArrayList<Character> truth = new ArrayList<Character>();
 		truth.add('#');
@@ -58,6 +64,12 @@ public class RemovingStuffFromArrayLists {
 		truth.add('t');
 
 		/* TODO 2: Remove the hash symbols and print out the truth. */
+		for (int i = truth.size()-1; i > truth.size(); i--) {
 
+			truth.remove('#');
+			
+
+		}
+		System.out.println(truth);
 	}
 }
