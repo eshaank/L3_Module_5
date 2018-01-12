@@ -64,11 +64,11 @@ public class RemovingStuffFromArrayLists {
 		truth.add('t');
 
 		/* TODO 2: Remove the hash symbols and print out the truth. */
-		for (int i = truth.size()-1; i > truth.size(); i--) {
-
-			truth.remove('#');
-			
-
+		
+		for (int i = 0; i < truth.size(); i++) {
+			if (truth.get(i).equals('#')) {
+				truth.remove(i);
+			}
 		}
 		System.out.println(truth);
 	}
