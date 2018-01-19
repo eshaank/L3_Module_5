@@ -27,6 +27,13 @@ public class ThreadedNumberSorter {
 		}
 
 		//printArray(nums);
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				parallelSort(nums);
+			}
+		});
 		parallelSort(nums);
 		//printArray(nums);
 	}
