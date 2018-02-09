@@ -8,16 +8,21 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Hangman implements KeyListener{
 JFrame frame;
 JPanel panel;
 JLabel label;
+String word;
+int x = 250;
+int y = 300;
+String lines;
 boolean keyTyped = false;
 
 
-ArrayList<String> puzzle = new ArrayList<String>();
+ArrayList<String> letters = new ArrayList<String>();
 HashMap<Integer, String> stack = new HashMap<Integer, String>();
 	public static void main(String[] args) {
 		Hangman hangman = new Hangman();
@@ -47,32 +52,29 @@ HashMap<Integer, String> stack = new HashMap<Integer, String>();
 void main2() {
 	 label = new JLabel();
 	 panel = new JPanel();
-	int x = 250;
-	int y = 125;
+	
 	int min = 1;
 	int max = 25;
 	Random randomNum = new Random();
 	int random = min + randomNum.nextInt(max);
 	
-	 String word = stack.get(random);
+	  word = stack.get(random);
 	
 	//label.setText(stack.get(random));
 	System.out.println(stack.get(random));
-	System.out.println(word.length());
+	System.out.println(word.length());	
+	
+	Lines();
+}
+void Lines() {
+	 lines = "";
 	
 	for (int i = 0; i < word.length(); i++) {
-		panel.add(new JLabel("_")); 
-		
-		label.setLocation(x + i, y);
-		
-	//	label.setLocation(x + i, y);
-		
-		
-		
+	lines += "_ ";
 		
 	}
-}
-
+	label.setText(lines);
+	}
 void wordList(){
 	
 	stack.put(1, "abruptly");
@@ -111,10 +113,25 @@ void wordList(){
 @Override
 public void keyTyped(KeyEvent e) {
 	keyTyped = true;
-	if(stack.containsKey(e.getKeyChar()) && keyTyped == true) {
-		label.setText("hi");
-		System.out.println(e.toString());
+	if(word.contains(e.getKeyChar() + "")) {
+		letters.add(e.getKeyChar() + "");
+		String hi = "";
+		for (int i = 0; i < word.length(); i++) {
+			lines.replaceFirst("_", "");
+			System.out.println("hi");
+			if(word.contains(letters + "")) {
+			hi += letters.get(i) + "";
+			}
+			else {
+				hi+="_";
+			}
+		}
+		//System.out.println(letters);
 	}
+	else {
+		JOptionPane.showMessageDialog(null, "Pick another letter por favor");
+	}
+	
 }
 
 
