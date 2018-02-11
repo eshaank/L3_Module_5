@@ -4,9 +4,9 @@ public class Fibonacci {
 public static void main(String[] args) {
 	for (int i = 0; i < i+1; i++) {
 		
-	//	System.out.println("Number " + i + ": " + Fib(i));
+		System.out.println("Number " + i + ": " + Fib(i));
 	}
-	System.out.println("2147483647" + 1);
+	
 }
 static int Fib(int a) {
 	if(a<=1) {
