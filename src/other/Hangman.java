@@ -14,16 +14,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Hangman implements KeyListener {
-	
+	HangPanel hanger = new HangPanel();
 	JFrame frame;
 	JPanel panel;
+	JPanel panel2;
 	JLabel label;
 	String word;
 	int x = 250;
 	int y = 300;
 	String lines;
 	boolean keyTyped = false;
-
+	int lifeCounter;
 	ArrayList<String> letters = new ArrayList<String>();
 	ArrayList<String> puzzle = new ArrayList<String>();
 	HashMap<Integer, String> stack = new HashMap<Integer, String>();
@@ -39,11 +40,13 @@ public class Hangman implements KeyListener {
 
 	void main() {
 		main2();
+		
 		frame = new JFrame();
 
 		frame.setVisible(true);
-		frame.setSize(500, 250);
+		frame.setSize(850, 500);
 		frame.add(panel);
+		
 		panel.add(label);
 		frame.setTitle("Hangman?");
 		
@@ -60,7 +63,9 @@ public class Hangman implements KeyListener {
 		panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				g.drawRect(50, 100, 6, 150);
+				hanger.paint(g);
+				
+					
 				
 			};
 		};
@@ -79,9 +84,23 @@ public class Hangman implements KeyListener {
 
 		Lines();
 	}
+	void drawHead() {
+		label = new JLabel();
+		panel2 = new JPanel() {
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				hanger.paint(g);
+				
+					
+				
+			};
+		};
+		panel2.repaint();
+	}
+
 
 	void Lines() {
-
+puzzle.add("_");
 		for (int i = 0; i < word.length(); i++) {
 			puzzle.add("_");
 
@@ -127,6 +146,7 @@ public class Hangman implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 		
 		keyTyped = true;
+		
 		if (word.contains(e.getKeyChar() + "")) {
 			letters.add(e.getKeyChar() + "");
 
@@ -145,7 +165,17 @@ public class Hangman implements KeyListener {
 
 			}
 		} else {
+			lifeCounter ++;
 			JOptionPane.showMessageDialog(null, "Pick another letter por favor");
+			
+			if (lifeCounter == 4) {
+				drawHead();
+			}
+			if(lifeCounter >= 25) {
+				JOptionPane.showMessageDialog(null, "Game Over. You lost.");
+				frame.dispose();
+			}
+			System.out.println(lifeCounter);
 		}
 
 	}
