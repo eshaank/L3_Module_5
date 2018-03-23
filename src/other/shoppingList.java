@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class shoppingList {
@@ -20,11 +22,14 @@ public class shoppingList {
 			
 			System.out.println("Type 'add' to add and object to the list");
 			String num = kb.nextLine();
+			String test = "this is a test";
+			
 			if (num.equals("add")) {
 				System.out.println("Type what you would like to add");
 				String list = kb.nextLine();
 				out.println(list);
 			}
+			else if(num.equals(anObject))
 			out.close();
 			while(reader.ready()) {
 				System.out.println(reader.readLine());
