@@ -1,6 +1,5 @@
 package other;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -16,15 +15,21 @@ import javax.swing.JPanel;
 public class Hangman implements KeyListener {
 	HangPanel hanger = new HangPanel();
 	JFrame frame;
+	JFrame frame2;
 	JPanel panel;
 	JPanel panel2;
+	JPanel panel3;
 	JLabel label;
+	JLabel label2;
+	JLabel label3;
+
 	String word;
 	int x = 250;
 	int y = 300;
 	String lines;
 	boolean keyTyped = false;
-	int lifeCounter;
+	 int lifeCounter = 24;
+	 int livesLeft;
 	ArrayList<String> letters = new ArrayList<String>();
 	ArrayList<String> puzzle = new ArrayList<String>();
 	HashMap<Integer, String> stack = new HashMap<Integer, String>();
@@ -35,42 +40,51 @@ public class Hangman implements KeyListener {
 		hangman.wordList();
 
 		hangman.main();
-
+		
 	}
 
 	void main() {
 		main2();
-		
+		//livesLeft();
 		frame = new JFrame();
-
+		
 		frame.setVisible(true);
 		frame.setSize(850, 500);
 		frame.add(panel);
 		
+
 		panel.add(label);
+		panel.add(label2);
+		panel.add(label3);
 		frame.setTitle("Hangman?");
-		
-		
+
 		frame.addKeyListener(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		//panel.add(label);
 		
 		
-	
 	}
 
 	void main2() {
 		label = new JLabel();
+		label2 = new JLabel();
+		label3 = new JLabel();
+		
+		label3.setText("You have 24 lives.");	
+		
 		panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				hanger.paint(g);
-				
-					
-				
+				if (lifeCounter == 20) {
+					g.drawOval(148, 213, 65, 65);
+					System.out.println("hi");
+				}
 			};
 		};
 		panel.repaint();
-		
+
 		int min = 1;
 		int max = 25;
 		Random randomNum = new Random();
@@ -84,23 +98,21 @@ public class Hangman implements KeyListener {
 
 		Lines();
 	}
+	
 	void drawHead() {
-		label = new JLabel();
-		panel2 = new JPanel() {
+
+		panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				hanger.paint(g);
-				
-					
-				
+				g.drawOval(148, 213, 65, 65);
+
 			};
 		};
-		panel2.repaint();
+		panel.repaint();
 	}
 
-
 	void Lines() {
-puzzle.add("_");
+
 		for (int i = 0; i < word.length(); i++) {
 			puzzle.add("_");
 
@@ -138,15 +150,12 @@ puzzle.add("_");
 
 	}
 
-	void Hanger(Graphics g) {
-		g.fillRect(500, 500, 6, 100);
-	}
-
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		
 		keyTyped = true;
-		
+
 		if (word.contains(e.getKeyChar() + "")) {
 			letters.add(e.getKeyChar() + "");
 
@@ -164,18 +173,30 @@ puzzle.add("_");
 				}
 
 			}
-		} else {
-			lifeCounter ++;
+		} 
+		
+		else {
+		label3.hide();
+		 lifeCounter--;
 			JOptionPane.showMessageDialog(null, "Pick another letter por favor");
+			label2.setLocation(175, 200);
+			label2.setText("You have " + lifeCounter + " lives.");
+			//System.out.println("lives shown");
 			
-			if (lifeCounter == 4) {
-				drawHead();
-			}
-			if(lifeCounter >= 25) {
-				JOptionPane.showMessageDialog(null, "Game Over. You lost.");
+			
+			if (lifeCounter == 0) {
+				
+				label.setText(word);
+				JOptionPane.showMessageDialog(null,  "You lost. The word was " + word);
+				
 				frame.dispose();
 			}
-			System.out.println(lifeCounter);
+			
+			
+		}
+		 if (!puzzle.contains("_")) {
+			System.out.println("hi");
+			JOptionPane.showMessageDialog(null, "Good Job! \n You got the correct word, " + word + ".");
 		}
 
 	}

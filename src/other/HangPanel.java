@@ -12,9 +12,18 @@ public void paint(Graphics g) {
 	g.fillRect(50, 178, 10, 350);
 	g.fillRect(50, 470, 285, 10);
 	
+	
+	
+	
+	
 }
 
 public void head(Graphics g) {
-	g.drawOval(148, 213, 65, 65);
+	
+		g.drawOval(148, 213, 65, 65);
+	
+	
+	
+	//g.drawLine(170, 290, 170, 490);
 }
 }
